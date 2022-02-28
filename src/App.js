@@ -8,9 +8,11 @@ import { useWorkoutGoalContext } from './context/WorkoutGoalContext';
 function App() {
   const [goalShowModal, goalSetShowModal] = useState(false);
   
-  const { workoutGoals } = useWorkoutGoalContext();
+  const { workoutGoals, currentSet } = useWorkoutGoalContext();
   
   console.log(workoutGoals);
+  console.log(currentSet);
+  
   return (
     <>
         <Stack>
@@ -27,7 +29,7 @@ function App() {
           </Container>
           <Stack className="col-md-5 mx-auto">
         {workoutGoals.map(goal =>(
-          <WorkoutGoal key={goal.id} name= {goal.id} sets={goal.sets} reps= {goal.reps} weight={goal.weight}/>
+          <WorkoutGoal key={goal.id} name= {goal.name} sets={goal.sets} reps= {goal.reps} weight={goal.weight}/>
         ))}
         <Button className='my-5' onClick={() => goalSetShowModal(true)}>Add Goal</Button>
         </Stack>

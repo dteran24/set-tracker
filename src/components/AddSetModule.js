@@ -4,8 +4,7 @@ import { useWorkoutGoalContext } from '../context/WorkoutGoalContext';
 
 export default function AddSetModule(props) {
     const {handleClose, show} = props;
-    const {addWorkoutGoal} = useWorkoutGoalContext();
-    const nameRef = useRef();
+    const {addCurrentSet} = useWorkoutGoalContext();
     const setsRef = useRef();
     const repsRef = useRef();
     const weightRef = useRef();
@@ -13,7 +12,7 @@ export default function AddSetModule(props) {
     
     function handleSubmit(e){
     e.preventDefault();
-    addWorkoutGoal({
+    addCurrentSet({
         sets: setsRef.current.value,
         reps: repsRef.current.value,
         weight: weightRef.current.value
@@ -29,17 +28,13 @@ export default function AddSetModule(props) {
         </Modal.Header>
         <Modal.Body>
         <Form>
-            <Form.Group controlId='name'>
-                <Form.Label>Workout Name</Form.Label>
-                <Form.Control ref={nameRef} type='text'required/>
-            </Form.Group>
             <Stack direction='horizontal' gap={5}>
             <Form.Group controlId='sets'>
                 <Form.Label>Number of Sets</Form.Label>
                 <Form.Control ref={setsRef} min={1} type='number' required/>
             </Form.Group>
             <Form.Group controlId='sets'>
-                <Form.Label>Number of Sets</Form.Label>
+                <Form.Label>Number of Reps</Form.Label>
                 <Form.Control ref={repsRef} min={1} type='number' required/>
             </Form.Group>
             </Stack>

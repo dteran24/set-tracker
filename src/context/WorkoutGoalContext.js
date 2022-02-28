@@ -1,4 +1,5 @@
 import React, {useContext, useState} from 'react';
+import { v4 as uuidV4 } from "uuid"
 import useLocalStorage from '../hooks/UseLocalStorage';
 
 const WorkoutGoalContext = React.createContext();
@@ -16,21 +17,21 @@ export const WorkoutGoalProvider = ({children}) => {
             if (prevWorkoutGoal.find(workout => workout.name === name)){
                 return prevWorkoutGoal;
             }
-            return [...prevWorkoutGoal, {id: name, sets, reps, weight}]
+            return [...prevWorkoutGoal, {id: uuidV4(), name, sets, reps, weight}]
         })
     }
-    function addWorkoutGoal({name, sets, reps, weight}) {
-        setWorkoutGoals(prevWorkoutGoal => {
-            if (prevWorkoutGoal.find(workout => workout.name === name)){
-                return prevWorkoutGoal;
+    function addCurrentSet({sets, reps, weight}) {
+        setCurrentSet(prevCurrentSet => {
+            if (prevCurrentSet.find(set => set.sets && set.reps && set.weight === sets && reps && weight)){
+                return prevCurrentSet;
             }
-            return [...prevWorkoutGoal, {id: name, sets, reps, weight}]
+            return [...prevCurrentSet, {id: uuidV4(), sets, reps, weight}]
         })
     }
         
     return (
         <WorkoutGoalContext.Provider
-            value ={{addWorkoutGoal, workoutGoals}}>
+            value ={{addWorkoutGoal, workoutGoals, addCurrentSet, currentSet}}>
                 {children}
         </WorkoutGoalContext.Provider>
     )
