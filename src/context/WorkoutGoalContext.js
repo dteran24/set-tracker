@@ -9,13 +9,22 @@ export function useWorkoutGoalContext (){
 
 export const WorkoutGoalProvider = ({children}) => {
     const [workoutGoals, setWorkoutGoals] = useState([]);
+    const [currentSet, setCurrentSet] = useState([]);
 
-    function addWorkoutGoal({name, sets, weight}) {
+    function addWorkoutGoal({name, sets, reps, weight}) {
         setWorkoutGoals(prevWorkoutGoal => {
             if (prevWorkoutGoal.find(workout => workout.name === name)){
                 return prevWorkoutGoal;
             }
-            return [...prevWorkoutGoal, {id: name, sets, weight}]
+            return [...prevWorkoutGoal, {id: name, sets, reps, weight}]
+        })
+    }
+    function addWorkoutGoal({name, sets, reps, weight}) {
+        setWorkoutGoals(prevWorkoutGoal => {
+            if (prevWorkoutGoal.find(workout => workout.name === name)){
+                return prevWorkoutGoal;
+            }
+            return [...prevWorkoutGoal, {id: name, sets, reps, weight}]
         })
     }
         

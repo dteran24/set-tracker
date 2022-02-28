@@ -1,12 +1,13 @@
 import './App.css';
 import { useState } from 'react';
 import {Card, Stack, Button, Container} from 'react-bootstrap';
-import AddModule from './components/AddModule';
+import AddModule from './components/AddGoalModule';
 import WorkoutGoal from './components/WorkoutGoal';
 import { useWorkoutGoalContext } from './context/WorkoutGoalContext';
 
 function App() {
-  const [showModal, setShowModal] = useState(false);
+  const [goalShowModal, goalSetShowModal] = useState(false);
+  
   const { workoutGoals } = useWorkoutGoalContext();
   
   console.log(workoutGoals);
@@ -26,15 +27,13 @@ function App() {
           </Container>
           <Stack className="col-md-5 mx-auto">
         {workoutGoals.map(goal =>(
-          <WorkoutGoal key={goal.id} name= {goal.id} sets={goal.sets} weight={goal.weight}/>
+          <WorkoutGoal key={goal.id} name= {goal.id} sets={goal.sets} reps= {goal.reps} weight={goal.weight}/>
         ))}
-        <Button className='my-5' onClick={() => setShowModal(true)}>Add Goal</Button>
+        <Button className='my-5' onClick={() => goalSetShowModal(true)}>Add Goal</Button>
         </Stack>
-       
-        
         </Stack>
    
-    <AddModule show={showModal} handleClose={() => setShowModal(false)}
+    <AddModule show={goalShowModal} handleClose={() => goalSetShowModal(false)}
       />
     </>
   );

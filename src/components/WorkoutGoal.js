@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Card, Button, Stack} from 'react-bootstrap';
+import AddSetModule from './AddSetModule';
 
 export default function WorkoutGoal(props) {
-  const {name, sets, weight} = props;
+  const {name, sets, reps, weight} = props;
+  const [addSetModule, setAddSetModule] = useState(false);
   return (
+    <>
     <Card>
       <Card.Title className='text-center'>{name}</Card.Title>
       <Card.Body>
@@ -14,7 +17,7 @@ export default function WorkoutGoal(props) {
           </Stack>
           <Stack>
             <h3>Goal Set</h3>
-            <p>{sets} X {weight}</p>
+            <p>{sets} X {reps} at {weight}lb</p>
           </Stack>
       
         
@@ -22,10 +25,12 @@ export default function WorkoutGoal(props) {
       </Card.Body>
       <Card.Footer>
         <Stack direction='horizontal' gap={5} >
-        <Button>Add Current Set</Button>
+        <Button onClick={ () => setAddSetModule(true) }>Add Current Set</Button>
         <Button>Add Notes</Button>
         </Stack>
         </Card.Footer>
     </Card>
+    <AddSetModule show={addSetModule} handleClose={() => setAddSetModule(false)}/>
+    </>
   )
 }
