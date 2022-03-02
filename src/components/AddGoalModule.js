@@ -18,7 +18,6 @@ export default function AddModule(props) {
         sets: setsRef.current.value,
         reps: repsRef.current.value,
         weight: weightRef.current.value
-        
     })
     handleClose();
     }
@@ -39,8 +38,8 @@ export default function AddModule(props) {
                 <Form.Label>Number of Sets</Form.Label>
                 <Form.Control ref={setsRef} min={1} type='number' required/>
             </Form.Group>
-            <Form.Group controlId='sets'>
-                <Form.Label>Number of Sets</Form.Label>
+            <Form.Group controlId='reps'>
+                <Form.Label>Number of Reps</Form.Label>
                 <Form.Control ref={repsRef} min={1} type='number' required/>
             </Form.Group>
             </Stack>

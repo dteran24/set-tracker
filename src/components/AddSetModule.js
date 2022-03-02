@@ -3,11 +3,12 @@ import React, {useRef} from 'react';
 import { useWorkoutGoalContext } from '../context/WorkoutGoalContext';
 
 export default function AddSetModule(props) {
-    const {handleClose, show} = props;
-    const {addCurrentSet} = useWorkoutGoalContext();
+    const {handleClose, show, defaultGoalID} = props;
+    const {addCurrentSet, workoutGoals} = useWorkoutGoalContext();
     const setsRef = useRef();
     const repsRef = useRef();
     const weightRef = useRef();
+    const goalIDRef = useRef();
     
     
     function handleSubmit(e){
@@ -15,8 +16,8 @@ export default function AddSetModule(props) {
     addCurrentSet({
         sets: setsRef.current.value,
         reps: repsRef.current.value,
-        weight: weightRef.current.value
-        
+        weight: weightRef.current.value,
+        goalID: goalIDRef.current.value        
     })
     handleClose();
     }
@@ -28,6 +29,14 @@ export default function AddSetModule(props) {
         </Modal.Header>
         <Modal.Body>
         <Form>
+            <Form.Group controlId='goalID'>
+                <Form.Label>Workout Name</Form.Label>
+                <Form.Select defaultValue={defaultGoalID} ref={goalIDRef}>
+                    {workoutGoals.map(goal => (
+                        <option key={goal.id} value={goal.id}>{goal.name}</option>
+                    ))}
+                </Form.Select>
+            </Form.Group>
             <Stack direction='horizontal' gap={5}>
             <Form.Group controlId='sets'>
                 <Form.Label>Number of Sets</Form.Label>

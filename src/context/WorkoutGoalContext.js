@@ -12,6 +12,11 @@ export const WorkoutGoalProvider = ({children}) => {
     const [workoutGoals, setWorkoutGoals] = useState([]);
     const [currentSet, setCurrentSet] = useState([]);
 
+    
+  function getGoalSets(goalID) {
+    return currentSet.filter(set => set.goalID === goalID)
+  }
+
     function addWorkoutGoal({name, sets, reps, weight}) {
         setWorkoutGoals(prevWorkoutGoal => {
             if (prevWorkoutGoal.find(workout => workout.name === name)){
@@ -20,18 +25,22 @@ export const WorkoutGoalProvider = ({children}) => {
             return [...prevWorkoutGoal, {id: uuidV4(), name, sets, reps, weight}]
         })
     }
-    function addCurrentSet({sets, reps, weight}) {
+    function removeWorkoutGoal({id}) {
+        setWorkoutGoals(prevWorkoutGoal => {
+            return prevWorkoutGoal.filter(goal => goal.id !== id);
+        })
+    }
+
+
+    function addCurrentSet({sets, reps, weight, goalID}) {
         setCurrentSet(prevCurrentSet => {
-            if (prevCurrentSet.find(set => set.sets && set.reps && set.weight === sets && reps && weight)){
-                return prevCurrentSet;
-            }
-            return [...prevCurrentSet, {id: uuidV4(), sets, reps, weight}]
+            return [...prevCurrentSet, {id: uuidV4(), sets, reps, weight, goalID}]
         })
     }
         
     return (
         <WorkoutGoalContext.Provider
-            value ={{addWorkoutGoal, workoutGoals, addCurrentSet, currentSet}}>
+            value ={{addWorkoutGoal, workoutGoals, addCurrentSet, currentSet, removeWorkoutGoal, getGoalSets}}>
                 {children}
         </WorkoutGoalContext.Provider>
     )
