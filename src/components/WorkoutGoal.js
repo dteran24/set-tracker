@@ -22,33 +22,34 @@ export default function WorkoutGoal(props) {
     <Card>
       <Card.Title>
         <Container className='d-flex justify-content-between my-2'>
-          <h2>{name}</h2>
+          <h2 className='fs-1'>{name}</h2>
           <Button variant='danger' onClick={() => removeWorkoutGoal(goal)}>
             <FontAwesomeIcon icon={faTrashCan}/>
           </Button>
+          
         </Container>
       </Card.Title>
       <Card.Body>
         <Stack direction='horizontal' gap={3}>
           <Stack>
-            <h3>Current Sets</h3>
+            <h3 className='fs-1'>Current Sets</h3>
             <div style={{height:'8rem', overflowY:'auto'}}>
             {currentSet.length === 0 ? 
             (<p>No Current Set</p>):
             (currentSet.reverse().map( set => (
-              <p key={set.id}>{set.sets} x {set.reps} at {set.weight}lbs <span>{month}-{date}-{year}</span></p>
+              <p key={set.id}>{set.sets}x{set.reps} at {set.weight}lbs <span className='text-secondary' >{month}/{date}/{year}</span></p>
             )))}
           </div>
           </Stack>
           <Stack>
-            <h3>Goal</h3>
-            <p>{sets} x {reps} at {weight}lbs</p>
+            <h3 className='fs-1'>Goal</h3>
+            <p style={{fontSize: '1em'}}>{sets}x{reps} at {weight}lbs</p>
           </Stack>
         </Stack>
       </Card.Body>
       <Card.Footer className='text-center'>
-        {complete === "true" ? <p>Goal Complete!<FontAwesomeIcon icon={faCheckCircle}/></p> : ""}
-        <p>Created {month}-{date}-{year}</p>
+        {complete === "true" ? <p className='fs-1'>Goal Complete! <FontAwesomeIcon style={{color:"lightgreen"}} icon={faCheckCircle}/></p> : ""}
+        <p>Created {month}/{date}/{year}</p>
       </Card.Footer>
     </Card>
     

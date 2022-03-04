@@ -10,8 +10,8 @@ export function useWorkoutGoalContext (){
 
 
 export const WorkoutGoalProvider = ({children}) => {
-    const [workoutGoals, setWorkoutGoals] = useState([]);
-    const [currentSet, setCurrentSet] = useState([]);
+    const [workoutGoals, setWorkoutGoals] = useLocalStorage("Goals",[]);
+    const [currentSet, setCurrentSet] = useLocalStorage("Sets",[]);
     
 
     
