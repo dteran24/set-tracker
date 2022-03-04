@@ -1,6 +1,7 @@
 import {Modal, Form, Button, Stack} from 'react-bootstrap';
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import { useWorkoutGoalContext } from '../context/WorkoutGoalContext';
+
 
 export default function AddModule(props) {
     const {handleClose, show} = props;
@@ -11,16 +12,20 @@ export default function AddModule(props) {
     const weightRef = useRef();
     
     
+
     function handleSubmit(e){
-    e.preventDefault();
-    addWorkoutGoal({
-        name: nameRef.current.value,
-        sets: setsRef.current.value,
-        reps: repsRef.current.value,
-        weight: weightRef.current.value
-    })
-    handleClose();
-    }
+        e.preventDefault();
+        addWorkoutGoal({
+            name: nameRef.current.value,
+            sets: setsRef.current.value,
+            reps: repsRef.current.value,
+            weight: weightRef.current.value,
+            complete: "false",
+            })
+        handleClose();
+        }
+
+    
 
     return (
     <Modal show={show} onHide={handleClose}>
@@ -28,10 +33,10 @@ export default function AddModule(props) {
             <Modal.Title>New Goal</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Form.Group controlId='name'>
                 <Form.Label>Workout Name</Form.Label>
-                <Form.Control ref={nameRef} type='text' required/>
+                <Form.Control ref={nameRef} type='text' required />
             </Form.Group>
             <Stack direction='horizontal' gap={5}>
             <Form.Group controlId='sets'>
@@ -48,7 +53,7 @@ export default function AddModule(props) {
                 <Form.Control ref={weightRef} min={5} type='number' required/>
             </Form.Group>
             <div className='d-flex'>
-                <Button className='my-3 mx-auto' type='submit' onClick={handleSubmit}>Submit</Button>
+                <Button className='my-3 mx-auto' type='submit'>Submit</Button>
             </div>
             
         </Form>

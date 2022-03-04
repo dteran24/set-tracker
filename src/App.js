@@ -20,21 +20,11 @@ function App() {
   console.log(workoutGoals);
   console.log(currentSet);
   
+
   return (
     <>
-        
-          <Container className='text-center'>
-            <p>Welcome to my Fitness Tracker. Here you can track your workouts in the most simplistic way using the progressive overload method. Recommended for people who have a current workout plan.<br/>
-            How it Works:
-            </p>
-            <ol>
-              <li>Set a Goal</li>
-              <li>Set your Current Lift</li>
-              <li>Edit your lift when your reps increase</li>
-              <li>Once your current lift reaches your goal</li>
-            </ol>
-          </Container>
-          <Stack className="col-md-5 mx-auto" gap={3}>
+
+          <Stack className="col-md-5 mx-auto mb-3" gap={3}>
         {workoutGoals.map(goal =>(
 
           <WorkoutGoal
@@ -44,13 +34,14 @@ function App() {
             sets={goal.sets} 
             reps= {goal.reps} 
             weight={goal.weight}
+            complete={goal.complete}
             />
             
             
         ))}
         
-        {workoutGoals.length === 0 ? null : <Button onClick={openAddSetModule}>Add Set</Button>}
-        <Button onClick={() => goalSetShowModal(true)}>Add Goal</Button>
+        {workoutGoals.length === 0 ? null : <Button className='mx-5' onClick={openAddSetModule}>Add Set</Button>}
+        <Button className='mx-5' onClick={() => goalSetShowModal(true)}>Add Goal</Button>
        
         </Stack>
         

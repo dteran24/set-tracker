@@ -11,24 +11,45 @@ export default function AddSetModule(props) {
     const goalIDRef = useRef();
     
     
+
     function handleSubmit(e){
     e.preventDefault();
     addCurrentSet({
         sets: setsRef.current.value,
         reps: repsRef.current.value,
         weight: weightRef.current.value,
-        goalID: goalIDRef.current.value        
+        goalID: goalIDRef.current.value,
+            
     })
+    goalCheck(goalIDRef.current.value, setsRef.current.value, repsRef.current.value, weightRef.current.value);    
     handleClose();
+
+    }
+    function goalCheck(id, sets, reps, weight){
+        let searchedGoal = workoutGoals.find(b => b.id === id);
+        let check = workoutGoals.find(goal => 
+                goal.id === id && 
+                goal.sets === sets &&
+                goal.weight === weight &&
+                goal.reps === reps);
+            console.log(check);
+        
+        if(check !== undefined){
+            searchedGoal.complete = "true"
+        }
     }
 
+    
+
+
+ 
     return (
     <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
             <Modal.Title>Current Set</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Form.Group controlId='goalID'>
                 <Form.Label>Workout Name</Form.Label>
                 <Form.Select defaultValue={defaultGoalID} ref={goalIDRef}>
@@ -52,7 +73,7 @@ export default function AddSetModule(props) {
                 <Form.Control ref={weightRef} min={5} type='number'required/>
             </Form.Group>
             <div className='d-flex'>
-                <Button className='my-3 mx-auto' type='submit' onClick={handleSubmit}>Submit</Button>
+                <Button className='my-3 mx-auto' type='submit'>Submit</Button>
             </div>
             
         </Form>
